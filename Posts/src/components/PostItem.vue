@@ -1,7 +1,10 @@
 <script setup>
 import { defineProps } from 'vue'
+import { useRouter } from 'vue-router'
 
-const pst = defineProps({
+const router = useRouter()
+
+defineProps({
   post: {
     type: Object,
     required: true
@@ -15,11 +18,16 @@ function createExcerpt(text, maxLength) {
     return text.slice(0, maxLength).trim() + '...'
   }
 }
+
+const redirectToPost = (postId) => {
+  router.push(`/posts/${postId}`)
+}
 </script>
 
 <template>
   <article
     class="flex bg-gray-100 space-x-4 border border-gray-200 p-12 rounded-xl bg-gray-100 mt-5 hover:bg-white"
+    @click="redirectToPost(post.id)"
   >
     <div class="flex-shrink-0"></div>
     <div>

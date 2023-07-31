@@ -11,8 +11,8 @@ const router = createRouter({
       component: PostView
     },
     {
-      path: '/post',
-      name: 'create-post',
+      path: '/posts/:id',
+      name: 'PostDetails',
       // route level code-splitting
       // this generates a eparate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
