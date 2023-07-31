@@ -1,19 +1,33 @@
 <script setup>
+import { ref } from 'vue'
+import Modal from './components/ModalPost.vue'
+import CreatePost from './components/CreatePost.vue'
+
+const isModalVisible = ref(false)
+
+const showModal = () => {
+  isModalVisible.value = true
+}
+const closeModal = () => {
+  isModalVisible.value = false
+}
+
 import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <!-- <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav> -->
-    </div>
-  </header>
+  <div>
+    <nav class="bg-blue-500 fixed top-0 left-0 w-full h-4vh flex items-center justify-around px-4z">
+      <RouterLink to="/">Posts</RouterLink>
+      <button type="button" class="btn" @click="showModal">Create New Post</button>
+      <Modal v-show="isModalVisible" @close="closeModal">
+        <template #header> Create New Post </template>
+        <template #body>
+          <CreatePost />
+        </template>
+      </Modal>
+    </nav>
+  </div>
 
   <RouterView />
 </template>
@@ -33,11 +47,17 @@ nav {
   width: 100%;
   font-size: 12px;
   text-align: center;
-  margin-top: 2rem;
+}
+.btn {
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 nav a.router-link-exact-active {
-  color: var(--color-text);
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 nav a.router-link-exact-active:hover {
@@ -76,8 +96,7 @@ nav a:first-of-type {
     margin-left: -1rem;
     font-size: 1rem;
 
-    padding: 1rem 0;
-    margin-top: 1rem;
+    padding: 2rem 0;
   }
 }
 </style>
