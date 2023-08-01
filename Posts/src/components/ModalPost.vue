@@ -1,12 +1,12 @@
 <template>
-  <div class="modal-backdrop">
+  <div class="modal-backdrop" v-if="isModalVisible">
     <div class="modal">
       <header class="modal-header">
         <button type="button" class="btn-close" @click="close">x</button>
       </header>
 
       <section class="modal-body">
-        <slot name="body"> This is the default body! </slot>
+        <slot name="body" @some-event="closeModal"> This is the default body! </slot>
       </section>
 
       <!-- <footer class="modal-footer">
@@ -21,8 +21,17 @@
 export default {
   name: 'ModalPost',
   methods: {
+    closeModal() {
+      this.isModalVisible.value = false
+    },
     close() {
+      console.log('emit received')
       this.$emit('close')
+    }
+  },
+  data() {
+    return {
+      isModalVisible: true
     }
   }
 }

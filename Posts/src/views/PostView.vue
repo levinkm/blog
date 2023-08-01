@@ -1,23 +1,28 @@
 <template lang="">
-  <div>
+  <div class="pt-40 max-w-2xl ml-[30%]">
     <header class="mb-4">
-      <h3 class="font-bold">
+      <h1 class="font-bold text-2xl">
         {{ post.title }}
-      </h3>
+      </h1>
+      <hr />
+      <br />
+
       <p class="text-xs">
         <time>{{ new Date(post.created_at).toLocaleString() }}</time>
       </p>
+      <br />
 
       <p>
         {{ post.body }}
       </p>
-      <!-- <button
-        class="tags bg-blue-500"
-        v-for="(tag, index) in post.tags.split(',').map((item) => item.trim())"
+      <br />
+      <button
+        class="tags bg-blue-500 w-32 rounded-lg m-3"
+        v-for="(tag, index) in post.tags"
         :key="index"
       >
         {{ tag }}
-      </button> -->
+      </button>
     </header>
   </div>
 </template>
@@ -42,6 +47,8 @@ onMounted(async () => {
 
     const response = await axios(config)
     post.value = response.data.data
+
+    post.value.tags = post.value.tags.split(',').map((item) => item.trim())
     console.log(post)
   } catch (error) {
     console.error('Error fetching Posts:', error)

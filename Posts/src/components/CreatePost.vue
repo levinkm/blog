@@ -25,7 +25,7 @@
         placeholder="tags"
         required
       />
-      <button type="submit" @click="redirectToPost()">Submit</button>
+      <button type="submit" @click="$emit('someEvent')">Submit</button>
     </form>
   </div>
 </template>
@@ -46,17 +46,13 @@ import axios from 'axios'
 
 const router = useRouter()
 
-const redirectToPost = () => {
-  router.push(`/}`)
-}
+//const redirectToPost = () => {
+//   router.push(`/}`)
+// }
 
 const title = ref('')
 const body = ref('')
 const tags = ref('')
-
-const close = () => {
-  this.$emit('close')
-}
 
 const handleSubmit = async () => {
   try {
@@ -78,6 +74,10 @@ const handleSubmit = async () => {
     router.replace('/')
 
     console.log('Response:', response.data)
+
+    tags.value = ''
+    body.value = ''
+    title.value = ''
 
     // Do something with the response, like showing a success message, etc.
   } catch (error) {
@@ -166,18 +166,6 @@ button:hover {
   .left-part,
   form {
     width: 50%;
-  }
-  .fa-envelope {
-    margin-top: 0;
-    margin-left: 20%;
-  }
-  .fa-at {
-    margin-top: -10%;
-    margin-left: 65%;
-  }
-  .fa-mail-bulk {
-    margin-top: 2%;
-    margin-left: 28%;
   }
 }
 </style>
